@@ -31,7 +31,7 @@
       </el-select>
       <el-select :placeholder="$t('Please select the datasource')"
                 v-model="datasource"
-                style="width: 288px;"
+                style="width: 200px;"
                 size="small"
                 :disabled="isDetails">
         <el-option

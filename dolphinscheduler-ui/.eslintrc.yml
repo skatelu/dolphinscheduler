@@ -40,5 +40,6 @@ rules:
   no-extend-native: 'off'
   prefer-const: 'off'
   no-var: 'error'
+  no-console: 'off'
 overrides:
   - { 'files': ['*.vue'], 'rules': { 'indent': 'off' }}

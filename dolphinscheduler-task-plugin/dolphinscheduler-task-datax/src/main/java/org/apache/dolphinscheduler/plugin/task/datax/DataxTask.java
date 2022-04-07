@@ -273,6 +273,11 @@ public class DataxTask extends AbstractTaskExecutor {
         ObjectNode writerParam = JSONUtils.createObjectNode();
         writerParam.put("username", dataTargetCfg.getUser());
         writerParam.put("password", decodePassword(dataTargetCfg.getPassword()));
+        // TODO 在此处添加 Mysql 写入方式
+        if (StringUtils.isNotBlank(dataXParameters.getWriteMode())) {
+            writerParam.put("writeMode", dataXParameters.getWriteMode());
+        }
+//        writerParam.put("writeMode",)
 
         String[] columns = parsingSqlColumnNames(DbType.of(dataxTaskExecutionContext.getSourcetype()),
                 DbType.of(dataxTaskExecutionContext.getTargetType()),

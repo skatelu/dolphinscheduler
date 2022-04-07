@@ -62,6 +62,11 @@ public class DataxParameters extends AbstractParameters {
     private int dataTarget;
 
     /**
+     * data insert type
+     */
+    private String writeMode;
+
+    /**
      * sql
      */
     private String sql;
@@ -147,6 +152,14 @@ public class DataxParameters extends AbstractParameters {
 
     public void setDataTarget(int dataTarget) {
         this.dataTarget = dataTarget;
+    }
+
+    public String getWriteMode() {
+        return writeMode;
+    }
+
+    public void setWriteMode(String writeMode) {
+        this.writeMode = writeMode;
     }
 
     public String getSql() {
@@ -240,6 +253,7 @@ public class DataxParameters extends AbstractParameters {
                 + ", dtType='" + dtType + '\''
                 + ", dataTarget=" + dataTarget
                 + ", sql='" + sql + '\''
+                + ", writeMode='" + writeMode + '\''
                 + ", targetTable='" + targetTable + '\''
                 + ", preStatements=" + preStatements
                 + ", postStatements=" + postStatements

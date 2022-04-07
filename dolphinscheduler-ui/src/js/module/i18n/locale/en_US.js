@@ -254,6 +254,7 @@ export default {
   'The password is inconsistent with the confirmation password': 'The password is inconsistent with the confirmation password',
   'Please select the datasource': 'Please select the datasource',
   'Please select resources': 'Please select resources',
+  'Please select insert type': 'Please select insert type',
   Query: 'Query',
   'Non Query': 'Non Query',
   'prop(required)': 'prop(required)',

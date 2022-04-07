@@ -55,13 +55,27 @@
       </m-list-box>
       <m-list-box>
         <div slot="text">{{$t('TargetDataBase')}}</div>
-        <div slot="content">
+        <div slot="content" style="display: inline-block">
           <m-datasource
             ref="refDt"
             @on-dsData="_onDtData"
             :supportType="['MYSQL','POSTGRESQL', 'ORACLE', 'SQLSERVER']"
             :data="{ type:dtType,datasource:datatarget }">
           </m-datasource>
+        </div>
+        <div slot="content" style="display: inline-block" v-if="showInsertType">
+          <el-select :placeholder="$t('Please select insert type')"
+                     v-model="writeMode"
+                     style="width: 150px;"
+                     size="small"
+                     :disabled="isDetails">
+            <el-option
+              v-for="insertType in dataInsertTypeModel"
+              :key="insertType.insertType"
+              :value="insertType.insertType"
+              :label="insertType.insertType">
+            </el-option>
+          </el-select>
         </div>
       </m-list-box>
       <m-list-box>
@@ -184,6 +198,12 @@
       return {
         // Data Custom template
         enable: false,
+        // Data Insert type
+        showInsertType: false,
+        // Data type
+        writeMode: '',
+        // Data Insert typeList
+        dataInsertTypeModel: [],
         // Data source type
         dsType: '',
         // data source
@@ -341,6 +361,7 @@
             dtType: this.dtType,
             dataTarget: this.rtDatatarget,
             sql: editor.getValue(),
+            writeMode: this.writeMode,
             targetTable: this.targetTable,
             jobSpeedByte: this.jobSpeedByte * 1024,
             jobSpeedRecord: this.jobSpeedRecord,
@@ -418,6 +439,7 @@
           dtType: this.dtType,
           dataTarget: this.rtDatatarget,
           sql: editor ? editor.getValue() : '',
+          writeMode: this.writeMode,
           targetTable: this.targetTable,
           jobSpeedByte: this.jobSpeedByte * 1024,
           jobSpeedRecord: this.jobSpeedRecord,
@@ -440,6 +462,29 @@
           jsonEditor.off($('.code-json-mirror'), 'keypress', this.keypress)
           jsonEditor.off($('.code-json-mirror'), 'changes', this.changes)
         }
+      },
+      initDataInsertType (newQuestion) {
+        console.log(' 变化后' + newQuestion)
+        if (newQuestion === 'MYSQL') {
+          console.log('这是我需要的类型')
+          this.showInsertType = true
+          // 组装 dataInsertTypeModel数据
+          this.dataInsertTypeModel = [
+            {
+              insertType: 'insert'
+            },
+            {
+              insertType: 'replace'
+            },
+            {
+              insertType: 'update'
+            }
+          ]
+          console.log(this.writeMode + '获取的数值')
+        } else {
+          this.showInsertType = false
+          this.dataInsertTypeModel = []
+        }
       }
     },
     created () {
@@ -459,6 +504,7 @@
           this.dtType = o.params.dtType || ''
           this.datatarget = o.params.dataTarget || ''
           this.sql = o.params.sql || ''
+          this.writeMode = o.params.writeMode || ''
           this.targetTable = o.params.targetTable || ''
           this.jobSpeedByte = o.params.jobSpeedByte / 1024 || 0
           this.jobSpeedRecord = o.params.jobSpeedRecord || 0
@@ -500,6 +546,9 @@
       // Watch the cacheParams
       cacheParams (val) {
         this._cacheParams()
+      },
+      dtType: function (newQuestion, oldQuestion) {
+        this.initDataInsertType(newQuestion)
       }
     },
     computed: {

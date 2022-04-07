@@ -253,6 +253,7 @@ export default {
   'The password is inconsistent with the confirmation password': '密码与确认密码不一致,请重新确认',
   'Please select the datasource': '请选择数据源',
   'Please select resources': '请选择资源',
+  'Please select insert type': '请选择写入方式',
   Query: '查询',
   'Non Query': '非查询',
   'prop(required)': 'prop(必填)',
