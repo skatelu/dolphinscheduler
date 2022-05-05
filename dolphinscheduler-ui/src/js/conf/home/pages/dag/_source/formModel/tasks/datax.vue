@@ -464,9 +464,7 @@
         }
       },
       initDataInsertType (newQuestion) {
-        console.log(' 变化后' + newQuestion)
         if (newQuestion === 'MYSQL') {
-          console.log('这是我需要的类型')
           this.showInsertType = true
           // 组装 dataInsertTypeModel数据
           this.dataInsertTypeModel = [
@@ -480,10 +478,10 @@
               insertType: 'update'
             }
           ]
-          console.log(this.writeMode + '获取的数值')
         } else {
           this.showInsertType = false
           this.dataInsertTypeModel = []
+          this.writeMode = ''
         }
       }
     },
