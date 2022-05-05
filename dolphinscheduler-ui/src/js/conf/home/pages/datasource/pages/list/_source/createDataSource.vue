@@ -236,6 +236,10 @@
             label: 'MYSQL'
           },
           {
+            value: 'STARROCKS',
+            label: 'STARROCKS'
+          },
+          {
             value: 'POSTGRESQL',
             label: 'POSTGRESQL'
           },
@@ -451,6 +455,9 @@
         let defaultPort = ''
         switch (type) {
           case 'MYSQL':
+            defaultPort = '3306'
+            break
+          case 'STARROCKS':
             defaultPort = '3306'
             break
           case 'POSTGRESQL':

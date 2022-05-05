@@ -28,6 +28,7 @@ import org.apache.dolphinscheduler.plugin.datasource.api.datasource.postgresql.P
 import org.apache.dolphinscheduler.plugin.datasource.api.datasource.presto.PrestoDatasourceProcessor;
 import org.apache.dolphinscheduler.plugin.datasource.api.datasource.spark.SparkDatasourceProcessor;
 import org.apache.dolphinscheduler.plugin.datasource.api.datasource.sqlserver.SqlServerDatasourceProcessor;
+import org.apache.dolphinscheduler.plugin.datasource.api.datasource.starrocks.StarRocksDatasourceProcessor;
 import org.apache.dolphinscheduler.spi.datasource.ConnectionParam;
 import org.apache.dolphinscheduler.spi.enums.DbType;
 
@@ -50,6 +51,7 @@ public class DatasourceUtil {
     private static final DatasourceProcessor sqlServerProcessor = new SqlServerDatasourceProcessor();
     private static final DatasourceProcessor db2PROCESSOR = new Db2DatasourceProcessor();
     private static final DatasourceProcessor prestoPROCESSOR = new PrestoDatasourceProcessor();
+    private static final DatasourceProcessor starRocksDatasourceProcessor = new StarRocksDatasourceProcessor();
 
     /**
      * check datasource param
@@ -106,6 +108,8 @@ public class DatasourceUtil {
                 return db2PROCESSOR;
             case PRESTO:
                 return prestoPROCESSOR;
+            case  STARROCKS:
+                return starRocksDatasourceProcessor;
             default:
                 throw new IllegalArgumentException("datasource type illegal:" + dbType);
         }

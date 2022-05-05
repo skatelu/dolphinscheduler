@@ -26,6 +26,7 @@ import org.apache.dolphinscheduler.plugin.datasource.api.datasource.postgresql.P
 import org.apache.dolphinscheduler.plugin.datasource.api.datasource.presto.PrestoDatasourceParamDTO;
 import org.apache.dolphinscheduler.plugin.datasource.api.datasource.spark.SparkDatasourceParamDTO;
 import org.apache.dolphinscheduler.plugin.datasource.api.datasource.sqlserver.SqlServerDatasourceParamDTO;
+import org.apache.dolphinscheduler.plugin.datasource.api.datasource.starrocks.StarRocksDatasourceParamDTO;
 import org.apache.dolphinscheduler.spi.enums.DbType;
 
 import java.io.Serializable;
@@ -46,6 +47,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
  * see {@link SqlServerDatasourceParamDTO}
  * see {@link Db2DatasourceParamDTO}
  * see {@link PrestoDatasourceParamDTO}
+ * see {@link StarRocksDatasourceParamDTO}
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
 @JsonSubTypes(value = {
@@ -58,6 +60,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(value = SqlServerDatasourceParamDTO.class, name = "SQLSERVER"),
         @JsonSubTypes.Type(value = Db2DatasourceParamDTO.class, name = "DB2"),
         @JsonSubTypes.Type(value = PrestoDatasourceParamDTO.class, name = "PRESTO"),
+        @JsonSubTypes.Type(value = StarRocksDatasourceParamDTO.class, name = "STARROCKS"),
 })
 public abstract class BaseDataSourceParamDTO implements Serializable {
 
