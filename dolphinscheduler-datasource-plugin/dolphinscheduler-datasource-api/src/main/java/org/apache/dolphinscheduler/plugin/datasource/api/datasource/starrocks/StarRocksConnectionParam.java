@@ -4,6 +4,17 @@ import org.apache.dolphinscheduler.spi.datasource.BaseConnectionParam;
 
 public class StarRocksConnectionParam extends BaseConnectionParam {
 
+    private String loadUrl;
+
+    public String getLoadUrl() {
+        return loadUrl;
+    }
+
+    public void setLoadUrl(String loadUrl) {
+        this.loadUrl = loadUrl;
+    }
+
+
     @Override
     public String toString() {
         return "StarRocksConnectionParam{"
@@ -12,6 +23,7 @@ public class StarRocksConnectionParam extends BaseConnectionParam {
                 + ", address='" + address + '\''
                 + ", database='" + database + '\''
                 + ", jdbcUrl='" + jdbcUrl + '\''
+                + ", loadUrl=" + loadUrl
                 + ", driverLocation='" + driverLocation + '\''
                 + ", driverClassName='" + driverClassName + '\''
                 + ", validationQuery='" + validationQuery + '\''

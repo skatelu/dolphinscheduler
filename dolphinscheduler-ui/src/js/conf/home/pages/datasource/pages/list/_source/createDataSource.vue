@@ -73,6 +73,18 @@
             </el-input>
           </template>
         </m-list-box-f>
+        <m-list-box-f v-if="showLoadUrls">
+          <template slot="name"><strong>*</strong>{{$t('StarRocks loadUrl')}}</template>
+          <template slot="content">
+            <el-input
+              type="textarea"
+              v-model="loadUrl"
+              :autosize="{minRows:2}"
+              size="small"
+              :placeholder="$t('Place enter loadUrl')">
+            </el-input>
+          </template>
+        </m-list-box-f>
         <m-list-box-f :class="{hidden:showPrincipal}">
           <template slot="name"><strong>*</strong>Principal</template>
           <template slot="content">
@@ -205,6 +217,8 @@
         host: '',
         // port
         port: '',
+        // loadUrl
+        loadUrl: '',
         // data storage name
         database: '',
         // principal
@@ -228,6 +242,7 @@
         showPrincipal: true,
         showDatabase: false,
         showConnectType: false,
+        showLoadUrls: false,
         isShowPrincipal: true,
         prePortMapper: {},
         datasourceTypeList: [
@@ -307,6 +322,7 @@
           name: this.name,
           note: this.note,
           host: this.host,
+          loadUrl: this.loadUrl,
           port: this.port,
           database: this.database,
           principal: this.principal,
@@ -369,11 +385,14 @@
           this.$message.warning(`${i18n.$t('Please enter port')}`)
           return false
         }
+        if (!this.loadUrl && this.showLoadUrls === false) {
+          this.$message.warning(`${i18n.$t('Place enter loadUrl')}`)
+          return false
+        }
         if (!this.userName) {
           this.$message.warning(`${i18n.$t('Please enter user name')}`)
           return false
         }
-
         if (!this.database && this.showDatabase === false) {
           this.$message.warning(`${i18n.$t('Please enter database name')}`)
           return false
@@ -406,7 +425,7 @@
         })
       },
       /**
-       * Get modified data
+       * Get modified data 将 src/js/conf/home/pages/datasource/pages/list/index.vue 上面查询到的数据进行回填
        */
       _getEditDatasource () {
         this.store.dispatch('datasource/getEditDatasource', { id: this.item.id }).then(res => {
@@ -414,6 +433,7 @@
           this.name = res.name
           this.note = res.note
           this.host = res.host
+          this.loadUrl = res.loadUrl
 
           // When in Editpage, Prevent default value overwrite backfill value
           setTimeout(() => {
@@ -513,6 +533,12 @@
           this.showConnectType = true
         } else {
           this.showConnectType = false
+        }
+
+        if (value === 'STARROCKS') {
+          this.showLoadUrls = true
+        } else {
+          this.showLoadUrls = false
         }
         // Set default port for each type datasource
         this._setDefaultValues(value)

@@ -48,6 +48,8 @@ public class DataxUtils {
 
     public static final String DATAX_WRITER_PLUGIN_CLICKHOUSE = "clickhousewriter";
 
+    public static final String DATAX_READER_PLUGIN_STARROCKS = "starrockswriter";
+
     public static String getReaderPluginName(DbType dbType) {
         switch (dbType) {
             case MYSQL:
@@ -60,6 +62,8 @@ public class DataxUtils {
                 return DATAX_READER_PLUGIN_SQLSERVER;
             case CLICKHOUSE:
                 return DATAX_READER_PLUGIN_CLICKHOUSE;
+            case STARROCKS:
+                return DATAX_READER_PLUGIN_MYSQL;
             default:
                 return null;
         }
@@ -77,6 +81,8 @@ public class DataxUtils {
                 return DATAX_WRITER_PLUGIN_SQLSERVER;
             case CLICKHOUSE:
                 return DATAX_WRITER_PLUGIN_CLICKHOUSE;
+            case STARROCKS:
+                return DATAX_READER_PLUGIN_STARROCKS;
             default:
                 return null;
         }
@@ -94,6 +100,8 @@ public class DataxUtils {
                 return new SQLServerStatementParser(sql);
             case CLICKHOUSE:
                 return new ClickhouseStatementParser(sql);
+            case STARROCKS:
+                return new MySqlStatementParser(sql);
             default:
                 return null;
         }
@@ -130,6 +138,8 @@ public class DataxUtils {
             case ORACLE:
                 return String.format("\"%s\"", column);
             case SQLSERVER:
+                return String.format("`%s`", column);
+            case STARROCKS:
                 return String.format("`%s`", column);
             default:
                 return column;

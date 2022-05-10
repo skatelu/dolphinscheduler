@@ -92,6 +92,7 @@ public class TaskExecuteProcessor implements NettyRequestProcessor {
 
     /**
      * Pre-cache task to avoid extreme situations when kill task. There is no such task in the cache
+     * 预缓存任务，以避免终止任务时出现极端情况。缓存中没有这样的任务
      *
      * @param taskExecutionContext task
      */
