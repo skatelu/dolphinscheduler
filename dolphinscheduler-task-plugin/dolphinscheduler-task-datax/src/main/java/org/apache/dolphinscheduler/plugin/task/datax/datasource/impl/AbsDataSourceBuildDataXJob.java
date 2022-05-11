@@ -82,7 +82,6 @@ public abstract class AbsDataSourceBuildDataXJob implements DataSourceBuildDataX
         if (StringUtils.isNotBlank(dataXParameters.getWriteMode())) {
             writerParam.put("writeMode", dataXParameters.getWriteMode());
         }
-//        writerParam.put("writeMode",)
 
         String[] columns = parsingSqlColumnNames(DbType.of(dataxTaskExecutionContext.getSourcetype()),
                 DbType.of(dataxTaskExecutionContext.getTargetType()),

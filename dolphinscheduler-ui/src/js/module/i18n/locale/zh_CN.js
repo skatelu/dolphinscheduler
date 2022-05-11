@@ -160,7 +160,7 @@ export default {
   Port: '端口',
   'StarRocks loadUrl': 'loadUrl',
   'Place enter loadUrl': '请输入loadUrl:StarRocks FE的地址用于Streamload，可以为多个fe地址，形如fe_ip:fe_http_port。\n' +
-    '输入格式为 "0.0.0.0:38100", "10.123.123.12:38100"',
+    '输入格式为 ["0.0.0.0:38100", "10.123.123.12:38100"]',
   'Please enter port': '请输入端口',
   'Database Name': '数据库名',
   'Please enter database name': '请输入数据库名',

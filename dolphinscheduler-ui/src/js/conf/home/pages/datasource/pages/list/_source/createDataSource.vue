@@ -385,7 +385,7 @@
           this.$message.warning(`${i18n.$t('Please enter port')}`)
           return false
         }
-        if (!this.loadUrl && this.showLoadUrls === false) {
+        if (!this.loadUrl && this.showLoadUrls === true) {
           this.$message.warning(`${i18n.$t('Place enter loadUrl')}`)
           return false
         }

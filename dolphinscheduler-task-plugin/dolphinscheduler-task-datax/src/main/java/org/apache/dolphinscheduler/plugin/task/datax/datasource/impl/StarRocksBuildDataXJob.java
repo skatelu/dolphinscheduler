@@ -1,5 +1,7 @@
 package org.apache.dolphinscheduler.plugin.task.datax.datasource.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.apache.commons.collections.CollectionUtils;
@@ -12,7 +14,6 @@ import org.apache.dolphinscheduler.spi.enums.DbType;
 import org.apache.dolphinscheduler.spi.task.request.DataxTaskExecutionContext;
 import org.apache.dolphinscheduler.spi.task.request.TaskRequest;
 import org.apache.dolphinscheduler.spi.utils.JSONUtils;
-import org.apache.dolphinscheduler.spi.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -73,8 +74,15 @@ public class StarRocksBuildDataXJob extends AbsDataSourceBuildDataXJob {
         writerParam.put("table", dataXParameters.getTargetTable());
         writerParam.put("jdbcUrl", DatasourceUtil.getJdbcUrl(DbType.valueOf(dataXParameters.getDtType()), dataTargetCfg));
         ArrayNode loadUrlArray = writerParam.putArray("loadUrl");
-        loadUrlArray.add(dataTargetCfg.getLoadUrl());
-
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<String> loadUrlList;
+        try {
+            loadUrlList = objectMapper.readValue(dataTargetCfg.getLoadUrl(), List.class);
+            loadUrlList.stream().forEach(loadUrl -> loadUrlArray.add(loadUrl));
+        } catch (JsonProcessingException e) {
+            logger.error(e.getMessage());
+            loadUrlList = new ArrayList();
+        }
         writerParam.putPOJO("loadProps", new HashMap<>());
 
         if (CollectionUtils.isNotEmpty(dataXParameters.getPreStatements())) {
