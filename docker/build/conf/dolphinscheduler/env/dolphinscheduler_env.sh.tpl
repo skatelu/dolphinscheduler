@@ -15,14 +15,14 @@
 # limitations under the License.
 #
 
-export HADOOP_HOME=$HADOOP_HOME
-export HADOOP_CONF_DIR=$HADOOP_CONF_DIR
-export SPARK_HOME1=$SPARK_HOME1
-export SPARK_HOME2=$SPARK_HOME2
-export PYTHON_HOME=$PYTHON_HOME
-export JAVA_HOME=$JAVA_HOME
-export HIVE_HOME=$HIVE_HOME
-export FLINK_HOME=$FLINK_HOME
-export DATAX_HOME=$DATAX_HOME
+export HADOOP_HOME=/opt/soft/hadoop
+export HADOOP_CONF_DIR=/opt/soft/hadoop/etc/hadoop
+export SPARK_HOME1=/opt/soft/spark1
+export SPARK_HOME2=/opt/soft/spark2
+export PYTHON_HOME=/usr
+export JAVA_HOME=/opt/jdk1.8.0_301
+export HIVE_HOME=/opt/soft/hive
+export FLINK_HOME=/opt/soft/flink
+export DATAX_HOME=/opt/datax
 
 export PATH=$HADOOP_HOME/bin:$SPARK_HOME1/bin:$SPARK_HOME2/bin:$PYTHON_HOME/bin:$JAVA_HOME/bin:$HIVE_HOME/bin:$FLINK_HOME/bin:$DATAX_HOME/bin:$PATH
