@@ -76,6 +76,24 @@ public class DataxParameters extends AbstractParameters {
     private String targetTable;
 
     /**
+     * StarRocks Single StreamLoad insert MaxRows
+     * default 500000 (50W)
+     */
+    private int maxBatchRows;
+
+    /**
+     * StarRocks Single StreamLoad insert MaxBytes
+     * default 104857600 (100M)
+     */
+    private int maxBatchSize;
+
+    /**
+     * StarRocks Single Execution time interval
+     * default 300000 (ms)
+     */
+    private int flushInterval;
+
+    /**
      * Pre Statements
      */
     private List<String> preStatements;
@@ -175,6 +193,30 @@ public class DataxParameters extends AbstractParameters {
 
     public void setTargetTable(String targetTable) {
         this.targetTable = targetTable;
+    }
+
+    public int getMaxBatchRows() {
+        return maxBatchRows;
+    }
+
+    public void setMaxBatchRows(int maxBatchRows) {
+        this.maxBatchRows = maxBatchRows;
+    }
+
+    public int getMaxBatchSize() {
+        return maxBatchSize;
+    }
+
+    public void setMaxBatchSize(int maxBatchSize) {
+        this.maxBatchSize = maxBatchSize;
+    }
+
+    public int getFlushInterval() {
+        return flushInterval;
+    }
+
+    public void setFlushInterval(int flushInterval) {
+        this.flushInterval = flushInterval;
     }
 
     public List<String> getPreStatements() {

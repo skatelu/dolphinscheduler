@@ -78,6 +78,24 @@
           </el-select>
         </div>
       </m-list-box>
+      <!-- Number of failed retries -->
+      <m-list-box v-if="showStarRocksParam">
+        <div slot="text">{{ $t("Single StreamLoad insert Max lines") }}</div>
+        <div slot="content">
+          <el-input v-model.number="maxBatchRows" size="small" style="width: 150px;" />
+          <span>({{ $t("0 means by default") }})</span>
+          <span class="text-b">{{ $t("Single StreamLoad insert Max bytes") }}</span>
+          <el-input v-model.number="maxBatchSize" size="small" style="width: 150px;" />
+          <span>({{ $t("0 means by default bytes") }})</span>
+        </div>
+      </m-list-box>
+      <m-list-box v-if="showStarRocksParam">
+        <div slot="text">{{ $t("Execution time interval") }}</div>
+        <div slot="content">
+          <el-input v-model.number="flushInterval" size="small" style="width: 150px;" />
+          <span>({{ $t("Millisecond") }}, {{ $t("0 means by default") }})</span>
+        </div>
+      </m-list-box>
       <m-list-box>
         <div slot="text">{{$t('TargetTable')}}</div>
         <div slot="content">
@@ -200,7 +218,9 @@
         enable: false,
         // Data Insert type
         showInsertType: false,
-        // Data type
+        // StarRocks param
+        showStarRocksParam: false,
+        // Mysql Insert Type
         writeMode: '',
         // Data Insert typeList
         dataInsertTypeModel: [],
@@ -225,6 +245,12 @@
         preStatements: [],
         // Post statements
         postStatements: [],
+        // StarRocks single StreamLoad insert Max lines
+        maxBatchRows: 0,
+        // StarRocks single StreamLoad insert Max bytes
+        maxBatchSize: 0,
+        // StarRocks execution time interval
+        flushInterval: 0,
         // speed byte
         jobSpeedByte: 0,
         // speed record
@@ -362,6 +388,9 @@
             dataTarget: this.rtDatatarget,
             sql: editor.getValue(),
             writeMode: this.writeMode,
+            maxBatchRows: this.maxBatchRows,
+            maxBatchSize: this.maxBatchSize,
+            flushInterval: this.flushInterval,
             targetTable: this.targetTable,
             jobSpeedByte: this.jobSpeedByte * 1024,
             jobSpeedRecord: this.jobSpeedRecord,
@@ -440,6 +469,9 @@
           dataTarget: this.rtDatatarget,
           sql: editor ? editor.getValue() : '',
           writeMode: this.writeMode,
+          maxBatchRows: this.maxBatchRows,
+          maxBatchSize: this.maxBatchSize,
+          flushInterval: this.flushInterval,
           targetTable: this.targetTable,
           jobSpeedByte: this.jobSpeedByte * 1024,
           jobSpeedRecord: this.jobSpeedRecord,
@@ -483,6 +515,14 @@
           this.dataInsertTypeModel = []
           this.writeMode = ''
         }
+        if (newQuestion === 'STARROCKS') {
+          this.showStarRocksParam = true
+        } else {
+          this.showStarRocksParam = false
+          this.maxBatchRows = 0
+          this.maxBatchSize = 0
+          this.flushInterval = 0
+        }
       }
     },
     created () {
@@ -503,6 +543,9 @@
           this.datatarget = o.params.dataTarget || ''
           this.sql = o.params.sql || ''
           this.writeMode = o.params.writeMode || ''
+          this.maxBatchRows = o.params.maxBatchRows || 0
+          this.maxBatchSize = o.params.maxBatchSize || 0
+          this.flushInterval = o.params.flushInterval || 0
           this.targetTable = o.params.targetTable || ''
           this.jobSpeedByte = o.params.jobSpeedByte / 1024 || 0
           this.jobSpeedRecord = o.params.jobSpeedRecord || 0

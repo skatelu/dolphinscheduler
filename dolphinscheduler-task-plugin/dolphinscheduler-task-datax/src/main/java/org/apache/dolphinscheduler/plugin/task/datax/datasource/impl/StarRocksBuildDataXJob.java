@@ -83,6 +83,17 @@ public class StarRocksBuildDataXJob extends AbsDataSourceBuildDataXJob {
             logger.error(e.getMessage());
             loadUrlList = new ArrayList();
         }
+
+        if (0 != dataXParameters.getMaxBatchRows()) {
+            writerParam.put("maxBatchRows", dataXParameters.getMaxBatchRows());
+        }
+        if (0 != dataXParameters.getMaxBatchSize()) {
+            writerParam.put("maxBatchSize", dataXParameters.getMaxBatchSize());
+        }
+        if (0 != dataXParameters.getFlushInterval()) {
+            writerParam.put("flushInterval", dataXParameters.getFlushInterval());
+        }
+
         writerParam.putPOJO("loadProps", new HashMap<>());
 
         if (CollectionUtils.isNotEmpty(dataXParameters.getPreStatements())) {
