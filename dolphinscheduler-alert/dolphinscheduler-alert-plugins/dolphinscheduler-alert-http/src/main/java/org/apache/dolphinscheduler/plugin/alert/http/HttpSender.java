@@ -32,6 +32,8 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -116,7 +118,14 @@ public final class HttpSender {
             if (!url.contains(URL_SPLICE_CHAR)) {
                 type = URL_SPLICE_CHAR;
             }
-            url = String.format("%s%s%s=%s", url, type, contentField, msg);
+            String content;
+            try {
+                content = URLEncoder.encode(msg, "utf-8");
+            } catch (UnsupportedEncodingException e) {
+                content = "msg convert URLEncoder fialed";
+                log.error("Alert Send HttpGet fialed, message : {}", e.getMessage());
+            }
+            url = String.format("%s%s%s=%s", url, type, contentField, content);
         }
     }
 

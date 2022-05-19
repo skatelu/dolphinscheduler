@@ -32,7 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@ActiveProfiles(ProfileType.H2)
+@ActiveProfiles(ProfileType.MYSQL)
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @SpringBootApplication
