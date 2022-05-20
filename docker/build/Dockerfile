@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-FROM openjdk:8-jre-slim-buster
+FROM openjdk:11.0.5-jre-slim-buster
 
 ARG VERSION
 ARG DEBIAN_FRONTEND=noninteractive
@@ -43,7 +43,12 @@ RUN apt-get update && \
 
 # 2. add dolphinscheduler
 ADD ./apache-dolphinscheduler-${VERSION}-bin.tar.gz /opt/
-RUN ln -s -r /opt/apache-dolphinscheduler-${VERSION}-bin /opt/dolphinscheduler
+RUN ln -s -r /opt/apache-dolphinscheduler-${VERSION}-bin /opt/dolphinscheduler && \
+    dos2unix /opt/apache-dolphinscheduler-${VERSION}-bin/script/*.sh && \
+    dos2unix /opt/apache-dolphinscheduler-${VERSION}-bin/bin/*.sh && \
+    dos2unix /opt/apache-dolphinscheduler-${VERSION}-bin/conf/*.properties && \
+    dos2unix /opt/apache-dolphinscheduler-${VERSION}-bin/conf/*.yaml && \
+    dos2unix /opt/apache-dolphinscheduler-${VERSION}-bin/conf/*/*
 WORKDIR /opt/apache-dolphinscheduler-${VERSION}-bin
 
 # 3. add configuration and modify permissions and set soft links
